@@ -1,4 +1,4 @@
-import Headbar from "../Headbar/Headbar";
+import Headbar from "../../modules/Headbar/Headbar";
 import { Wrapper, Menu, LabelItem, Content, FuncModule, DataDisplayModule } from "./styled"
 import PresentationModule from "@/modules/TextEditionModule/PresentationModule"
 
