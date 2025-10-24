@@ -1,0 +1,30 @@
+{
+  "id": "5038137",
+  "name": "tauri",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "45213303",
+      "name": "缩小",
+      "font_class": "suoxiao",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "45213304",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "45213310",
+      "name": "全屏",
+      "font_class": "quanping",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    }
+  ]
+}
