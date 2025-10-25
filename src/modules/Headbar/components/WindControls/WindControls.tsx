@@ -3,8 +3,6 @@
 import { Window } from "@tauri-apps/api/window";
 
 
-
-
 const WindControls = () => {
 
     const appWindow = new Window("main");
@@ -18,7 +16,7 @@ const WindControls = () => {
                 onClick={() => {
                     appWindow.minimize();
                 }}
-                className="minimize iconfont icon-suoxiao"
+                className="minimize iconfont icon-suoxiaohua"
             ></button>
             <button
                 onClick={() => {

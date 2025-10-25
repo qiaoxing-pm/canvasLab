@@ -11,6 +11,8 @@ const Wrapper = styled.div`
   }
 
   * {
+    overflow: hidden;
+
     &::-webkit-scrollbar {
       width: 12px;
       height: 8px;
