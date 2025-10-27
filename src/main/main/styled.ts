@@ -45,8 +45,17 @@ const LabelItem = styled.div`
 const Content = styled.div`
   width: calc(100% - 218px);
   height: 100%;
-  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
   background-color: #1e1e1e;
+
+  .test {
+    width: 100%;
+    height: 80px;
+    min-height: 80px;
+    max-height: 80px;
+    background-color: rebeccapurple;
+  }
 `;
 const DataDisplayModule = styled.div`
   width: 170px;

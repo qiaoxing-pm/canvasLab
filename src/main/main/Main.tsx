@@ -1,7 +1,9 @@
 import Headbar from "../../modules/Headbar/Headbar";
 import { Wrapper, Menu, LabelItem, Content, FuncModule, DataDisplayModule } from "./styled"
 import PresentationModule from "@/modules/TextEditionModule/PresentationModule"
-
+import CanvasLab from "@/modules/CanvasLab";
+import MenuBar from "@/modules/MenuBar";
+import GraphicSelection from '@/modules/GraphicSelection'
 const Home = () => {
     return (
         <Wrapper>
@@ -13,9 +15,14 @@ const Home = () => {
                     <LabelItem></LabelItem>
                     <LabelItem></LabelItem>
                 </Menu>
-                <DataDisplayModule></DataDisplayModule>
+                <DataDisplayModule>
+                    <GraphicSelection />
+                </DataDisplayModule>
                 <Content>
-                    <PresentationModule />
+                    <MenuBar />
+                    {/* <div className="test"></div> */}
+                    {/* <PresentationModule /> */}
+                    <CanvasLab />
                 </Content>
             </FuncModule>
         </Wrapper>
