@@ -1,22 +1,30 @@
 import { useEffect, useRef, useState } from 'react';
 import { Wrapper } from './styled'
 import { type CellStyle, EventObject, Graph, InternalEvent, Point } from '@maxgraph/core';
-import { createGraph, cellAnimation, Drop } from './util/util'
+import { createGraph, cellAnimation, Drop, useCanvas, release } from './util/util'
 
 
 const CanvasLab = () => {
 
     const containerCur = useRef(null);
     let graphState: Graph | null = null;
+    const rpsVar = {
+        value: {}
+    }
     useEffect(() => {
 
         const container = containerCur.current;
-        graphState = Drop(container)
+        // graphState = Drop(container);
 
-        graphState.addListener(InternalEvent.CLICK,(e,q) => {
-            console.log(q)
-        })
-        // graphState = createGraph(container);
+        // const graph = new Graph(container);
+        // graphState = graph
+
+        useCanvas(container, rpsVar, release, graphState);
+
+        // graphState.addListener(InternalEvent.CLICK, (e, q) => {
+        //     console.log(q)
+        // })
+
 
         // graphState.addListener(InternalEvent.CHANGE, (_, e) => {
         //     console.log(_, e)
@@ -36,9 +44,9 @@ const CanvasLab = () => {
         //         }
         //     })
         // })
-        return () => {
-            graphState?.destroy();
-        }
+        // return () => {
+        //     graphState?.destroy();
+        // }
 
     }, [])
 
@@ -55,7 +63,8 @@ const CanvasLab = () => {
         >
             <div className='wrapper-canvas'>
                 <div className='wrapper-canvas-wapper'>
-                    <div id="graph-container" ref={containerCur}></div>
+                    <canvas ref={containerCur} className='wrapper-canvas-content'></canvas>
+                    {/* <div id="graph-container" ref={containerCur}></div> */}
                 </div>
             </div>
         </Wrapper>

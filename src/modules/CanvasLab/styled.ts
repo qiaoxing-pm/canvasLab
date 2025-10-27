@@ -15,12 +15,17 @@ const Wrapper = styled.div`
     overflow: auto;
 
     .wrapper-canvas-wapper {
-      width: max-content;
-      height: max-content;
+      height: 100%;
+      width: 100%;
+      /* width: max-content;
+      height: max-content; */
       overflow: hidden;
-      .wrapper-asdf {
-        width: 10px;
-        height: 10000px;
+      .wrapper-canvas-content {
+        /* height: 800px;
+        height: 1000px; */
+        height: 100%;
+        width: 100%;
+        background-color: #c8c8c8ff;
       }
 
       /* 基础流动动画 - 模拟液体流动 */

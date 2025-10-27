@@ -1,10 +1,13 @@
+import { PolygonDrawer, PolygonDrawerClick, SvgDrawer } from "@/object";
+import type { Rect, PointType, rpsVar, MaskRectangle } from "@/type/type";
+import { parseInt2, deepClone } from "@/util";
 import {
   CellState,
   type CellStyle,
   Graph,
-  Point,
   InternalEvent,
   Cell,
+  Point,
   EventObject,
   SwimlaneManager,
   StackLayout,
@@ -580,51 +583,80 @@ const Drop = (domRef: HTMLElement) => {
   return graph;
 };
 
-export const deepClone = <T>(data: T): T => {
-  // 用于存储已拷贝的对象，解决循环引用问题
-  const visited = new Map();
+export const getMinimumBoundingRect = (polygon: Array<PointType>): Rect => {
+  if (polygon.length < 3) {
+  }
 
-  // 创建一个处理函数，使用循环代替递归
-  const clone = (source: any): any => {
-    // 非对象类型直接返回
-    if (typeof source !== "object" || source === null) {
-      return source;
-    }
+  const minX = Math.min(...polygon.map((p) => p.x));
+  const maxX = Math.max(...polygon.map((p) => p.x));
+  const minY = Math.min(...polygon.map((p) => p.y));
+  const maxY = Math.max(...polygon.map((p) => p.y));
+  const width = maxX - minX;
+  const height = maxY - minY;
+  const points = polygon.map((p) => {
+    return {
+      x: parseInt2((p.x - minX) / width, 2),
+      y: parseInt2((p.y - minY) / height, 2),
+    };
+  });
 
-    // 如果已经拷贝过，直接返回缓存的结果（处理循环引用）
-    if (visited.has(source)) {
-      return visited.get(source);
-    }
-
-    let result: any;
-
-    // 处理数组
-    if (source instanceof Array) {
-      result = [];
-      visited.set(source, result); // 先缓存空数组，处理循环引用
-
-      // 使用循环遍历数组元素
-      for (let i = 0; i < source.length; i++) {
-        result.push(clone(source[i]));
-      }
-    }
-    // 处理对象
-    else {
-      result = {};
-      visited.set(source, result); // 先缓存空对象，处理循环引用
-
-      // 使用循环遍历对象属性
-      const keys = Object.keys(source);
-      for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        result[key] = clone(source[key]);
-      }
-    }
-
-    return result;
+  return {
+    x: parseInt2(minX),
+    y: parseInt2(minY),
+    width: parseInt2(width),
+    height: parseInt2(height),
+    points,
   };
+};
 
-  return clone(data) as T;
+export const useCanvas = (
+  node: HTMLCanvasElement,
+  drawer: rpsVar,
+  release: Function,
+  graph: Graph
+) => {
+  // drawer.value = new SvgDrawer(
+  //   node,
+  //   (points) => console.log("完成绘制", points),
+  //   (hit) => console.log("点击", hit)
+  // );
+  drawer.value = new PolygonDrawerClick(
+    node,
+    (points: Array<PointType>) => {
+      if (points.length < 3) {
+        return;
+      }
+      const rect = getMinimumBoundingRect(points);
+      // release?.(graph, rect);
+    },
+    (hit) => {
+      // 点击事件回调
+      if (hit.type === "vertex") {
+        console.log(
+          `点击了第 ${hit.polygonIndex} 个多边形的第 ${hit.pointIndex} 个顶点`
+        );
+      } else if (hit.type === "polygon") {
+        console.log(`点击了第 ${hit.polygonIndex} 个多边形内部`);
+      }
+    }
+  );
+  return drawer;
+};
+
+export const release = (graph: Graph, rect: MaskRectangle) => {
+  if (rect.width <= 0 || rect.height <= 0) {
+    return;
+  }
+
+  graph.insertVertex(
+    graph.getDefaultParent(),
+    null,
+    null,
+    rect.x,
+    rect.y,
+    rect.width,
+    rect.height
+  );
 };
 
 export { createGraph, cellAnimation, Drop };
