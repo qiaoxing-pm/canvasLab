@@ -15,11 +15,13 @@ const Wrapper = styled.div`
   }
 
   .presentation-content {
-    width: max-content;
+    height: 100%;
+    width: 100%;
+    /* width: max-content; */
     box-sizing: border-box;
-    height: max-content;
-    min-height: 200%;
-    min-width: 100%;
+    /* height: max-content; */
+    /* min-height: 200%;
+    min-width: 100%; */
     border: none;
     color: white;
     outline: none;

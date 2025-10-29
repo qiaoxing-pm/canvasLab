@@ -21,8 +21,8 @@ const Home = () => {
                 <Content>
                     <MenuBar />
                     {/* <div className="test"></div> */}
-                    {/* <PresentationModule /> */}
-                    <CanvasLab />
+                    <PresentationModule />
+                    {/* <CanvasLab /> */}
                 </Content>
             </FuncModule>
         </Wrapper>

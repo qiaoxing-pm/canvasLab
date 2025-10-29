@@ -1,5 +1,3 @@
 import LeftOperation from "./LeftOperation";
-
-export {
-    LeftOperation
-}
+import MonacoEditor from "./MonacoEditor/MonacoEditor";
+export { MonacoEditor, LeftOperation };
